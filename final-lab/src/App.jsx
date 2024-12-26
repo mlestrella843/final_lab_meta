@@ -1,19 +1,27 @@
-import { useState } from 'react'
-
-import './App.css'
+import { ChakraProvider } from "@chakra-ui/react";
+import Header from "./Header";
+import LandingSection from "./LandingSection";
+import ProjectsSection from "./ProjectsSection";
+import ContactMeSection from "./ContactMeSection";
+import Footer from "./Footer";
+import { AlertProvider } from "./context/alertContext";
+import Alert from "./Alert";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      
-      <div>
-        <h1>Portfolio: Final Lab</h1>
-      </div>
-        
-    </>
-  )
+    <ChakraProvider>
+      <AlertProvider>
+        <main>
+          <Header />
+          <LandingSection />
+          <ProjectsSection />
+          <ContactMeSection />
+          <Footer />
+          <Alert />
+        </main>
+      </AlertProvider>
+    </ChakraProvider>
+  );
 }
 
-export default App
+export default App;
