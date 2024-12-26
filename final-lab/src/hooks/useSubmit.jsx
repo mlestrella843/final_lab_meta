@@ -1,6 +1,4 @@
- import {useState} from "react";
 
- const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // /**
 //  * This is a custom hook that can be used to submit a form and simulate an API call
@@ -38,26 +36,30 @@
 // export default useSubmit;
 
 
+import { useState } from "react";
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const useSubmit = () => {
   const [isLoading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  // Modificar para aceptar un modo de simulación
-  const submit = async (url, data, simulateSuccess = false) => {
+  const submit = async (url, data, simulateSuccess = true) => {
     setLoading(true);
+    setResponse(null); // Reinicia la respuesta al inicio de cada envío
     try {
-      // await wait(2000);
+      await wait(1000); // Simula un tiempo de espera realista
       if (!simulateSuccess) {
         throw new Error("Something went wrong");
       }
       setResponse({
-        type: 'success',
+        type: "success",
         message: `Thanks for your submission ${data.firstName}, we will get back to you shortly!`,
       });
     } catch (error) {
       setResponse({
-        type: 'error',
-        message: 'Something went wrong, please try again later!',
+        type: "error",
+        message: "Something went wrong, please try again later!",
       });
     } finally {
       setLoading(false);
@@ -66,4 +68,5 @@ const useSubmit = () => {
 
   return { isLoading, response, submit };
 };
+
 export default useSubmit;
